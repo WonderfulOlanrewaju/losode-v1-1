@@ -3,12 +3,13 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SCSS/App.scss';
 import './SCSS/responsiveness.scss'
-import SellerDashboard from './Seller/SellerDashboard'
+// import SellerDashboard from './Seller/SellerDashboard'
 import CustomerDashboard from'./Customers/CustomerDashboard'
 import MainNavbar from './components/MainNavbar';
 import SubMainNavbar from './components/SubMainNavbar';
 import CategoryNavbar from './components/CategoryNavbar';
-import CouponNavbar from './components/CouponNavbar';
+// import CouponNavbar from './components/CouponNavbar';
+import {PrivateRoute} from './components/Private.Route';
 import AuthContext from './Context/AuthContext'
 import Home from './components/Home'
 import Admin from './components/Admin'
@@ -23,7 +24,7 @@ import Facebook from './components/Facebook'
 import Cart from './components/Cart'
 import CustomerHelp from './Customers/CustomerHelp.js'
 import AboutLosode from './components/AboutLosode'
-import {BrowserRouter as Router, Switch,Redirect,Route} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 class App extends React.Component{
   constructor(props){
@@ -47,7 +48,7 @@ class App extends React.Component{
   
     addToCart(product){
       this.setState(prevState=>{
-      const newCart = prevState.cart
+      let newCart = prevState.cart
       let productAlreadyInCart = false;
       newCart.forEach(item =>{
         if(item.id ===product.id){
@@ -137,13 +138,10 @@ class App extends React.Component{
    
   }
   
-
-
   componentDidMount(){
    this.getProducts()
    this.getIpAddress()
   }
-
 
   render(){
     console.log('IP result ', this.state.result)
@@ -174,7 +172,7 @@ class App extends React.Component{
              <CategoryNavbar/>
              <Switch>
                <Route exact path='/' component ={Home}/>
-               <Route path ='/admin' component ={Admin}/>
+               <PrivateRoute component={Admin} path='/admin'/>
                <Route path ='/user-auth' component ={UserAuth}/>
                <Route path ='/sale'  component ={Sale}/>
                <Route path ='/converter' component ={CurrencyConverter}/>
@@ -185,7 +183,7 @@ class App extends React.Component{
                <Route path ='/cart' component ={Cart}/>
                <Route path ='/customer/dashboard/orders' component ={MyOrders}/>
                <Route path ='/customer/dashboard/returns' component ={MyReturns}/>
-               <Route path ='/customer/dashboard/help' component ={CustomerHelp}/>
+               <PrivateRoute path ='/customer/dashboard/help' component ={CustomerHelp}/>
                <Route path='/aboutlosode' component={AboutLosode}/>
              </Switch>
         </Router>

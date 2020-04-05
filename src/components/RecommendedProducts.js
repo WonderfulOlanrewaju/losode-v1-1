@@ -1,19 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-class RecommendedProducts extends React.Component{
-   constructor(props){
-       super(props)
-       this.state ={
-         products:[]
-       }
-   }
-   render(){
-       return(
-           <React.Fragment>
-                Recommended Products go in Here
-           </React.Fragment>
-       )
-   }
+const RecommendedProducts = ()=> {
+    return (
+        <>
+            Recommended Products go in Here
+        </>
+    )
 }
+
 
 export default RecommendedProducts

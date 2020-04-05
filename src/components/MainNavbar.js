@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFlag } from 'react-icons/fa';
+// import { FaFlag } from 'react-icons/fa';
 // import { FaHeart} from 'react-icons/fa';
 // import { FaUser} from 'react-icons/fa';
 // import {FaCartPlus} from 'react-icons/fa';

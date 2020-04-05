@@ -1,17 +1,11 @@
 import React from 'react'
 
-
-
-class Admin extends React.Component{
-	render(){
-		return(
-			<React.Fragment>
-
-				Hello from the Admin component
-
-			</React.Fragment>
-
-			)
-	}
+const Admin = () => {
+	return (
+		<>
+			Hello from the Admin component
+		</>
+	)
 }
+
 export default Admin

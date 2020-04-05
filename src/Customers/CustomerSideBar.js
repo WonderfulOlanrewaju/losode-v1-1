@@ -1,34 +1,31 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import {Link} from 'react-router-dom';
+import './Customers.scss';
 
-import './Customers.scss'
 class CustomerSideBar extends React.Component{
       constructor(props){
         super(props)
-        
         this.handleOrders = this.handleOrders.bind(this)
         this.handleDashboard = this.handleDashboard.bind(this)
         this.handleMyReturns = this.handleMyReturns.bind(this)
         this.handleNeedhelp = this.handleNeedhelp.bind(this)
       }
-      
+
      handleDashboard(){
-       this.props.handleDashboard()
+       this.props.handleDashboard();
      }
      handleMyReturns(){
-       this.props.handleMyReturns()
+       this.props.handleMyReturns();
      }
      handleNeedhelp(){
-       this.props.handleNeedhelp()
+       this.props.handleNeedhelp();
      }
      handleOrders(){
-      this.props.handleOrders()
+      this.props.handleOrders();
      }
-     
       render(){
         return(
           <div class="d-flex justify-content-center">
-          
           <ul class="sidebar-menu">
           <p class="">Welcome Isaac Orija</p>
            <li onClick ={this.handleDashboard}><Link to ='/customer/dashboard'>Dashboard</Link></li>  

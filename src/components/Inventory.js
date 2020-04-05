@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 class CreateProduct extends React.Component{
 	constructor(props){
@@ -38,12 +38,13 @@ class CreateProduct extends React.Component{
 			quantity:this.state.quantity,
 			price:this.state.price,
 			productName:this.state.productName
-		}
+    }
+    
+    let formData = new FormData();
 
-		const formData = new formData()
 
 		for(let key of Object.keys(this.state.productImage)){
-			formData.append('product images',this.state.productImage[key])
+			formData.append('productImages',this.state.productImage[key])
 		}
 
 		formData.append('products',products)

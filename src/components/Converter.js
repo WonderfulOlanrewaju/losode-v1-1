@@ -1,120 +1,97 @@
-import React from 'react'
-import axios from 'axios'
+import React, {useState, useEffect} from 'react';
 
+const CurrencyConverter = () => {
+	const [result, setResult] = useState(null);
+	const [currencies, setCurrencies] = useState([]);
+	const [toCurrency, setToCurrency] = useState('GBP');
+	const [fromCurrency, setFromCurrency] = useState('USD');
+	const [amount, setAmount] = useState(1);
 
-class CurrencyConverter extends React.Component{
-	constructor(props){
-		super(props)
-		this.state ={
-			currencies:[],
-			result :null,
-			toCurrency:'GBP',
-			fromCurrency:'USD',
-			amount:1
+	const handleChange= (e)=> {
+		setAmount(e.target.value)
+	}
+	const handleFrom= (e)=>{
+		setFromCurrency( e.target.value)
+	}
+	const handleTo= (e)=>{
+		setToCurrency(e.target.value)
+	}
+
+	const handleConversion = async (e)=>{
+		e.preventDefault()
+		if (fromCurrency !== toCurrency) {
+			try {
+				const data = await fetch(`https://api.openrates.io/latest?base${fromCurrency}&symbols=${toCurrency}`)
+				const result = await data.json()
+				setToCurrency( result.rate.toCurrency)
+			} catch (err) {
+				alert('unable to process conversion ', err.message);
+			}
 		}
-		this.handleConversion = this.handleConversion.bind(this)
-		this.handleChange = this.handleChange.bind(this)
-		this.selectHandler = this.selectHandler.bind(this)
-	}
-
-	handleChange(e){
-		this.setState({amount:e.target.value})
-	}
-
-	async getCurrencies(){
-		try{
-			 const results = await fetch('https://api.openrates.io/latest')
-		     const currencyResults = await results.json()
-			const currencyArr = ['EUR']
-			const data = currencyResults.rates
-			const keys = Object.keys(data)
-			const currencies =[...currencyArr,...keys]
-			this.setState({currencies})
-		}catch(err){
-			alert('unable to fetch Currencies ',err.message)
+		else {
+			setResult('You cant convert the same currency')
 		}
-    	
 	}
 
-	 async handleConversion(e){
-	 	e.preventDefault()
+	useEffect(()=>
+		async () => {
+			try {
+				console.log(amount)
+				const results = await fetch('https://api.openrates.io/latest')
+				const currencyResults = await results.json()
+				const currencyArr = ['EUR']
+				const data = currencyResults.rates
+				const keys = Object.keys(data)
+				const currencies = [...currencyArr, ...keys]
+				setCurrencies(currencies)
+			} catch (err) {
+				alert('unable to fetch Currencies ', err.message)
+			}
+		}	
+	, [amount]);
+	console.log('currencies :', currencies)
+	console.log('result : ', result)
+		return (
+			<>
+				<div className='container'>
 
-       if(this.state.fromCurrency !== this.state.toCurrency){
-       	try{
-          const data = await fetch(`https://api.openrates.io/latest?base${this.state.fromCurrency}&symbols=${this.state.toCurrency}`)
-       	    const result = await data.json()
-       	    this.setState({result:result['rates'][this.state.toCurrency]})
-       	  }catch(err){
-       	  	alert('unable to process conversion ',err.message)
-       	  }
-          
-       }
-       else{
-       	this.setState({result:'You cant convert the same currency'})
-       }
-	}
+					<h2>currency converter</h2>
 
-	selectHandler(e){
-	 this.setState({[e.target.name]:e.target.value})
-      
-	}
+					<form onSubmit={handleConversion}>
+						<div className='form-group'>
+							<input type='number' value={amount}
+								name='amount'
+								onChange={handleChange}
+								className='form-control'
+								min='1'
+							/>
+						</div>
 
-	
+						<div className='form-group'>
+							<select
+								name='fromCurrency'
+								onChange={handleFrom}
+								value={fromCurrency}
+								className='form-control'>
+								{currencies.map(currency => (<option key={currency} value={currency}>{currency}</option>))}
+							</select>
+						</div>
 
-	async componentDidMount(){
-	  this.getCurrencies()
-	}
-
-	render(){
-		console.log('currencies :',this.state.currencies)
-		console.log('result : ', this.state.result)
-
-		
-		return(
-  			 <React.Fragment>
-  			 <div className='container'>
-
-  			        <h2>currency converter</h2>
-  			           
-                       <form onSubmit ={this.handleConversion}>
-  			           <div className ='form-group'>
-  			             <input type='number' value ={this.state.amount}
-  			              name ='amount'
-  			               onChange={this.handleChange}
-  			               className='form-control'
-  			               min ='1'
-  			               />
-  			           </div>
-         	          
-         	          <div className ='form-group'>
-         	           <select
-         	              name = 'fromCurrency'
-         	            onChange ={this.selectHandler}
-         	             value = {this.state.fromCurrency}
-         	              className='form-control'>
-	         	        {this.state.currencies.map(currency=>(<option key ={currency} value ={currency}>{currency}</option>))}
-         	           </select>
-         	           </div>
-
-         	           <div className ='form-group'>
-         	           <select
-         	           name ='toCurrency'
-         	            onChange ={this.selectHandler}
-         	             value = {this.state.toCurrency}
-         	              className='form-control'>
-	         	        {this.state.currencies.map(currency=>(<option key ={currency} value ={currency}>{currency}</option>))}
-         	           </select>
-         	           </div>
-         	           <button className ='btn btn-primary btn-lg'>Convert</button>
-         	           </form>
-                    <div className='container'>{this.state.result && <h3>{this.state.result}</h3>}</div>
-   
-                </div>
-
-              
-          			 </React.Fragment>
-			)
-	}
+						<div className='form-group'>
+							<select
+								name='toCurrency'
+								onChange={handleTo}
+								value={toCurrency}
+								className='form-control'>
+								{currencies.map(currency => (<option key={currency} value={currency}>{currency}</option>))}
+							</select>
+						</div>
+						<button className='btn btn-primary btn-lg'>Convert</button>
+					</form>
+					<div className='container'>{result && <h3>{result}</h3>}</div>
+				</div>
+			</>
+		)
 }
 
 export default CurrencyConverter

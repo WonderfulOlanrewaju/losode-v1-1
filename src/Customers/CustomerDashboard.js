@@ -2,14 +2,13 @@ import React from 'react'
 import CustomerHelp from './CustomerHelp'
 import MyOrders from './Orders'
 import CustomerDetails from './CustomerDetails'
-import RecommendedProducts from  '../components/RecommendedProducts'
-import {BrowserRouter as Router} from 'react-router-dom'
+// import RecommendedProducts from  '../components/RecommendedProducts'
+// import {BrowserRouter as Router} from 'react-router-dom'
 import AuthContext from '../Context/AuthContext'
 import MyReturns from './Returns'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import CustomerSideBar from './CustomerSideBar'
 import Footer from '../components/Footer'
-
 
 class CustomerDashBoard extends React.Component{
 	constructor(props){
@@ -66,14 +65,10 @@ class CustomerDashBoard extends React.Component{
         
 		return(
 			<React.Fragment>
-				
-				
-
 				<div class="container-fluid">
-
-					<div class="row dashboard">
-					<div class="col-md-2">
-					<CustomerSideBar handleDashboard={this.handleDashboard}
+				<div class="row dashboard">
+				<div class="col-md-2">
+				<CustomerSideBar handleDashboard={this.handleDashboard}
 				 handleMyReturns={this.handleMyReturns}
 				 handleNeedhelp ={this.handleNeedhelp}
 				 handleOrders ={this.handleOrders}/>

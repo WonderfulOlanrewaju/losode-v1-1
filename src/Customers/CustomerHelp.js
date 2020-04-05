@@ -2,13 +2,9 @@ import React from 'react'
 import Search from './Search'
 import {Link} from 'react-router-dom'
 
-class CustomerHelp extends React.Component{
-    constructor(props){
-        super(props)
-    }
-    render(){
+function CustomerHelp (){
         return(
-            <React.Fragment>
+            <>
                 <Search/>
                 <div className='container-fluid'>
                    <div className ='row'>
@@ -33,8 +29,7 @@ class CustomerHelp extends React.Component{
                     
                    </div>
                 </div>
-            </React.Fragment>
+            </>
         )
-    }
 }
 export default CustomerHelp

@@ -1,9 +1,9 @@
-import React from 'react'
-import AuthContext from '../Context/AuthContext'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import AuthContext from '../Context/AuthContext';
+import {Link} from 'react-router-dom';
 import  Logo  from '../assets/images/losode_logo.svg';
-
 import '../userAuth/UserAuth.scss';
+
 class SignIn extends React.Component{
 	static contextType = AuthContext
    constructor(props){
@@ -18,11 +18,9 @@ class SignIn extends React.Component{
    	this.handleChange = this.handleChange.bind(this)
    }
 
-
 handleChange(e){
  this.setState({[e.target.name]:e.target.value})
 }
-
 
 handleSubmit(e){
 	e.preventDefault()
@@ -49,7 +47,7 @@ handleSubmit(e){
 
 		this.setState(
 			{
-     			email:'',
+     		email:'',
 				password:''	
 	     }
 	     )
@@ -59,10 +57,9 @@ handleSubmit(e){
 
 render(){
 	return(
- <React.Fragment>
+ <>
    <div className ='container'>
-
-           <a href="/"><img className="mx-auto d-block img-fluid logo" src={Logo} alt="losode logo"/></a>
+        <Link to="/"><img className="mx-auto d-block img-fluid logo" src={Logo} alt="losode logo"/></Link>
          <form onSubmit ={this.handleSubmit}>
            <h4 className="text-center">Sign In </h4>
            <p className="text-center">Sign in with Email</p>
@@ -74,7 +71,6 @@ render(){
                  className ='input-form form-control'
                   placeholder ='Email'
                    name ='email'
-
                     onChange ={this.handleChange}
                     value ={this.state.email}
                     required
@@ -102,7 +98,7 @@ render(){
            <p><Link to ='/facebook'>facebook login</Link> &nbsp;&nbsp;<Link to ='/google'>google login</Link></p> */}
           </form>
         </div>
- </React.Fragment>
+ </>
 	)
 }
 }

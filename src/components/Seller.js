@@ -1,14 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-
-class Seller extends React.Component{
-	render(){
-		return(
-			<React.Fragment>
-				hello from the Seller component
-			</React.Fragment>
-		)
-	}
+const Seller = () => {
+	return (
+		<>
+			hello from the Seller component
+		</>
+	)
 }
 
 export default Seller

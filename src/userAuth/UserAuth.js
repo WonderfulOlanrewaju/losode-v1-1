@@ -3,7 +3,6 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import Footer from '../components/Footer'
 
-
 import '../userAuth/UserAuth.scss';
 class UserAuth extends React.Component{
 	constructor(props){

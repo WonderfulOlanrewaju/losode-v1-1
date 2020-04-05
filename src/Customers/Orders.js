@@ -1,19 +1,11 @@
 import React from 'react'
 import OrderItem from './OrderItem'
 
-class MyOrders extends React.Component{
-    constructor(props){
-        super(props)
-        this.state ={
-            myOrders:[]
-        }
-    }
-    render(){
+const MyOrders= ()=>{
         return(
-            <React.Fragment>
+            <>
               <OrderItem/>
-            </React.Fragment>
+            </>
         )
-    }
 }
 export default MyOrders 
